@@ -13,11 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('register', 'Api\Auth\RegisterController@register');
+Route::apiResource('/h','ApiController');
 
-Route::post('login', 'Api\Auth\LoginController@login');
+Route::get('/login','ApiController@accessToken');
 
+Route::group(['middleware' => ['web','auth:api']], function()
+
+{
+    Route::post('/intervention/','ApiController@store');
+
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
+
     return $request->user();
+
 });
