@@ -18,7 +18,17 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+
+            $auth = Auth::user()->roles()->first()->designation;
+
+            switch ($auth) {
+                case 'Role_SuperAdmin':
+                    return  redirect('/administration');
+                    break;
+                case 'Role_HopitalAdmin':
+                    return  redirect('/hopital');
+                    break;
+            }
         }
 
         return $next($request);

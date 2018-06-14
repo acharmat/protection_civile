@@ -22,4 +22,9 @@ class Hopital extends Model
         return $this->belongsToMany('App\Service', 'hopital_service', 'hopital_id', 'service_id')->withPivot('lits');
     }
 
+    public function interventions()
+    {
+        return $this->hasMany('App\Intervention');
+    }
+
 }

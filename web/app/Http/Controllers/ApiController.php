@@ -37,6 +37,7 @@ class ApiController extends Controller
         $intervention->type = $request->type;
         $intervention->etat = $request->etat;
         $intervention->wilaya = $request->wilaya;
+        $intervention->hopital_id = $request->hopital_id;
 
         $intervention->save();
 

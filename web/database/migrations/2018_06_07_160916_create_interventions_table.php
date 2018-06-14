@@ -23,7 +23,11 @@ class CreateInterventionsTable extends Migration
             $table->string('type');
             $table->string('etat');
             $table->string('wilaya');
+            $table->integer('hopital_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('hopital_id')->references('id')->on('hopitals')->onDelete('cascade');
+
         });
     }
 

@@ -3,13 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Administrateurs</h1>
+    <h1>Stations</h1>
 
 @stop
 
 @section('content')
-
-
 
     <div class="row">
 
@@ -19,46 +17,40 @@
             <div class="box-body">
                 <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAdministrateur">
-                        Ajouter un administrateur
-                    </button>
-
-                    <table id="admin" class="table table-bordered table-hover" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Email</th>
-                            <th>Action</th>
+                    <a href="/administration/station/create" class="btn btn-success">Ajouter une station</a>
 
 
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <table id="data" class="table table-bordered table-hover" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>designation</th>
+                                    <th>wilaya</th>
+                                    <th>téléphone</th>
+                                    <th>email</th>
+                                    <th>/</th>
 
 
+                                </tr>
+                                </thead>
+                                <tbody>
 
 
 
-                        </tbody>
 
 
-
-                    </table>
-
+                                </tbody>
 
 
-                </div>
+                            </table>
+
+
+            </div>
             <!-- /.box-body -->
         </div>
                 </div>
             </div>
         </div>
-
-    <!-- Ajouter Service -->
-    @include('admin/Modal/addAdministrateur')
-
     </div>
 @stop
 
@@ -74,17 +66,18 @@
     <script type="text/javascript">
         var lastIdx = null;
 
-        var table = $('#admin').DataTable({
+        var table = $('#data').DataTable({
             "processing": true,
             serverSide: false,
 
-            ajax: '{{ url("/administration/admin/data") }}',
+            ajax: '{{ url("/administration/station/data") }}',
             columns: [
                 {data: 'id', name: 'id'},
-                {data: 'nom', name: 'nom'},
-                {data: 'prenom', name: 'prenom'},
-                {data: 'email', name: 'email'},
-                {data: 'action', name: 'action',orderable: false, searchable: false}
+                {data: 'designation', name: 'designation'},
+                {data: 'wilaya', name: 'wilaya'},
+                {data: 'tel', name: 'tel',orderable: false},
+                {data: 'email', name: 'email',orderable: false},
+                {data: 'action', name: 'action',orderable: false},
             ],
 
             "searching": true,

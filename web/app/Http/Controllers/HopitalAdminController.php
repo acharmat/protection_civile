@@ -26,10 +26,8 @@ class HopitalAdminController extends Controller
      */
     public function index()
     {
-        return view('hopital.home');
+        return view('HopitalAdmin.index');
     }
-
-
 
 
 }

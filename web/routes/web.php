@@ -78,11 +78,45 @@ Route::prefix('/administration')->group(function() {
 
     });
 
+    Route::prefix('/station')->group(function() {
+
+        Route::get('/data',['as' => 'administration.station.data' , 'uses' =>'StationsController@getStationsData']);
+
+        Route::get('/', 'StationsController@index');
+        Route::get('/create', 'StationsController@create');
+        Route::get('{station}', 'StationsController@show');
+        Route::post('/store', 'StationsController@store');
+        Route::post('/storeambulance', 'StationsController@storeambulance');
+        Route::post('/storeadmin', 'StationsController@storeadmin');
+        Route::get('{station}/edit', 'StationsController@edit');
+        Route::post('/update', 'StationsController@update');
+        Route::get('{station}/destroy', 'StationsController@destroy');
+        Route::get('/ambulances/{ambulance}/destroy', 'StationsController@destroyambulance');
+        Route::get('ambulances/{ambulance}/edit', 'StationsController@editambulance');
+
+
+        /* Route::prefix('{station}/admin')->group(function() {
+             Route::get('/data',['as' => 'administration.stationadmin.data' , 'uses' =>'StationController@getAdminData']);
+         });*/
+
+
+        Route::prefix('{station}/ambulances')->group(function() {
+            Route::get('/data',['as' => 'administration.ambulances.data' , 'uses' =>'StationsController@getAmbulancesData']);
+            Route::post('/update', 'HopitalController@updateservice');
+
+        });
+
+
+
+    });
+
+
 });
 
 
-Route::get('/station', 'AdminController@index');
-Route::get('/admin', 'HopitalAdminController@index');
+Route::get('/hopital', 'HopitalAdminController@index');
+Route::get('/hopital/interventions/data',['as' => 'administration.intervention.data' , 'uses' =>'InterventionsController@getInterventionData']);
+
 
 
 
