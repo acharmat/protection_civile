@@ -10,6 +10,7 @@ use App\Service;
 use App\User;
 use App\Wilaya;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Hash;
@@ -147,8 +148,8 @@ class HopitalController extends Controller
     public function editservice($id)
     {
         $hopitalservice = HopitalService::findOrFail($id);
-        $service  = Service::where('id',$hopitalservice->id)->first();
-        $hopital  = Hopital::where('id',$hopitalservice->id)->first();
+        $service  = Service::findOrFail($hopitalservice->service_id);
+        $hopital  = Hopital::findOrFail($hopitalservice->hopital_id);
 
 
         return view('hopital.services.edit', ['hopitalservice'=>$hopitalservice , 'service'=>$service, 'hopital'=>$hopital]);
@@ -157,7 +158,7 @@ class HopitalController extends Controller
     public function updateservice(Request $request)
     {
         $hopitalservice = HopitalService::find($request->id);
-        $hopital  = Hopital::where('id',$hopitalservice->id)->first();
+        $hopital  = Hopital::where('id',$hopitalservice->hopital_id)->first();
         $hopitalservice->fill([
             'lits' => $request['lits'],
         ])->save();
@@ -169,7 +170,6 @@ class HopitalController extends Controller
     public function destroyservice($id)
     {
         DB::table('hopital_service')->where('id', $id)->delete();
-
         return Redirect::back()->with('message', 'Supprimé avec succes');
     }
 
@@ -190,6 +190,21 @@ class HopitalController extends Controller
 
         return Redirect::back()->with('message', 'Ajouté avec succes');
     }
+
+
+    public function editadmin(User $user)
+    {
+        return view('hopital.admin.edit', ['user'=>$user]);
+    }
+
+
+    public function destroyadmin($id)
+    {
+        DB::table('hopital_service')->where('id', $id)->delete();
+        return Redirect::back()->with('message', 'Supprimé avec succes');
+    }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -230,7 +245,7 @@ class HopitalController extends Controller
         return Datatables::of($services)->removeColumn('hopital_id','service_id','created_at','updated_at')
             ->addColumn('action', function ($service) {
                 return '<a href="/administration/hopital/services/'. $service->id . '/edit" class="btn btn-xs btn-warning" >Modifier</a>
-                <a href="/administration/hopital/'. $service->id . '/destroyservice" class="btn btn-xs btn-danger">Supprimer</a>';
+                <a href="/administration/hopital/services/'. $service->id . '/destroy" class="btn btn-xs btn-danger">Supprimer</a>';
 
             })            ->make(true);
     }
@@ -243,8 +258,8 @@ class HopitalController extends Controller
 
         return Datatables::of($users)->removeColumn('role_id','user_id','post_id')
             ->addColumn('action', function ($user) {
-                return '<a href="/administration/hopital/services/'. $user->id . '/edit" class="btn btn-xs btn-warning" >Modifier</a>
-                <a href="/administration/hopital/'. $user->id . '/destroyservice" class="btn btn-xs btn-danger">Supprimer</a>';
+                return '<a href="/administration/admin/'. $user->id . '/edit" class="btn btn-xs btn-warning" >Modifier</a>
+                <a href="/administration/admin/'. $user->id . '/destroy" class="btn btn-xs btn-danger">Supprimer</a>';
 
             })            ->make(true);
     }

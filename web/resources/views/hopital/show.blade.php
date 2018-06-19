@@ -80,7 +80,7 @@
                     <div class="tab-pane" id="administrateur">
 
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAdministrateur">
-                            Ajouter un service
+                            Ajouter un administrateur
                         </button>
 
                         <table id="admin" class="table table-bordered table-hover" cellspacing="0">

@@ -30,7 +30,9 @@ Route::prefix('/administration')->group(function() {
         Route::get('/data',['as' => 'administration.admin.data' , 'uses' =>'SuperAdminController@getAdminData']);
         Route::get('/', 'SuperAdminController@index');
         Route::post('/store', 'SuperAdminController@store');
-
+        Route::get('{admin}/edit', 'SuperAdminController@edit');
+        Route::post('/update', 'SuperAdminController@update');
+        Route::get('{admin}/destroy', 'SuperAdminController@destroy');
 
     });
 
@@ -48,8 +50,6 @@ Route::prefix('/administration')->group(function() {
         Route::get('{hopital}/destroy', 'HopitalController@destroy');
 
 
- //       Route::post('{hopital}/services/{service}/destroyservice', 'HopitalController@destroyservice');
-
 
         Route::prefix('{hopital}/admin')->group(function() {
             Route::get('/data',['as' => 'administration.admin.data' , 'uses' =>'HopitalController@getAdminData']);
@@ -58,8 +58,22 @@ Route::prefix('/administration')->group(function() {
 
         Route::prefix('{hopital}/services')->group(function() {
             Route::get('/data',['as' => 'administration.services.data' , 'uses' =>'HopitalController@getServicesData']);
-            Route::get('{service}/edit', 'HopitalController@editservice');
-            Route::post('/update', 'HopitalController@updateservice');
+        });
+
+        Route::get('/services/{service}/edit', 'HopitalController@editservice');
+        Route::get('/services/{service}/destroy', 'HopitalController@destroyservice');
+        Route::post('/services/update', 'HopitalController@updateservice');
+
+/*
+        Route::get('/admin/{admin}/edit', 'HopitalController@editadmin');
+        Route::get('/admins/{admin}/destroy', 'HopitalController@destroyadmin');
+        Route::post('/admins/update', 'HopitalController@updateadmin');
+
+*/
+
+
+        Route::prefix('{hopital}/services')->group(function() {
+            Route::get('/data',['as' => 'administration.services.data' , 'uses' =>'HopitalController@getServicesData']);
         });
 
 
@@ -114,10 +128,46 @@ Route::prefix('/administration')->group(function() {
 });
 
 
-Route::get('/hopital', 'HopitalAdminController@index');
-Route::get('/hopital/interventions/data',['as' => 'administration.intervention.data' , 'uses' =>'InterventionsController@getInterventionData']);
+Route::prefix('/hopital')->group(function() {
 
 
+        Route::get('/', 'HopitalAdminController@index');
+
+        Route::prefix('/interventions')->group(function() {
+            Route::get('/data',['as' => 'administration.intervention.data' , 'uses' =>'InterventionsController@getInterventionData']);
+            Route::get('/', 'InterventionsController@index');
+            Route::get('/{intervention}', 'InterventionsController@show');
+            Route::get('/{intervention}/edit', 'InterventionsController@edit');
+
+            Route::post('/admission', 'InterventionsController@admission');
+            Route::post('/libirer', 'InterventionsController@libirer');
+
+            Route::post('/rapport/store', 'RapportsController@store');
+            Route::delete('/rapport/{rapport}/destroy', 'RapportsController@destroy');
+
+
+
+
+
+        });
+
+
+
+
+
+});
+
+
+
+
+Route::get('test', function () {
+    event(new App\Events\InterventionSent('Someone'));
+    return "Event has been sent!";
+});
+
+Route::get('/markAsRead', function () {
+    App\Hopital::findOrFail(App\Role::find(2)->users()->where('user_id',Auth::user()->id)->first()->pivot->post_id)->unreadNotifications->markAsRead();
+});
 
 
 

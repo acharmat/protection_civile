@@ -46,6 +46,47 @@ class SuperAdminController extends Controller
         return Redirect::back()->with('message', 'Ajouté avec succes');
     }
 
+
+
+    public function edit($id)
+    {
+       $user= User::find($id);
+        return view('admin.edit')->with('user', $user);
+    }
+
+
+    public function update(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->fill([
+            'nom' => $request['nom'],
+            'pranom' => $request['prenom'],
+            'email' => $request['email'],
+        ])->save();
+
+        return redirect::back()->with('message', 'Modifier avec succés');
+
+    }
+
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        User::destroy($id);
+        return redirect::back()->with('message', 'supprime avec succés');
+
+    }
+
+
+
+
     public function getAdminData()
     {
 
@@ -54,8 +95,8 @@ class SuperAdminController extends Controller
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
                 return '
-                <a href="/administration/hopital/'. $user->id . '/edit" class="btn btn-xs btn-warning" >Modifier</a>
-                <a href="/administration/hopital/'. $user->id . '/destroy" class="btn btn-xs btn-danger">Supprimer</a>';
+                <a href="/administration/admin/'. $user->id . '/edit" class="btn btn-xs btn-warning" >Modifier</a>
+                <a href="/administration/admin/'. $user->id . '/destroy" class="btn btn-xs btn-danger">Supprimer</a>';
 
             })
             ->make(true);

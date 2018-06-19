@@ -4,7 +4,6 @@
 
 @section('title', 'Dashboard')
 
-
 @section('content_header')
     <h1>Administrateur : {{ $user->nom }} {{ $user->pranom }}</h1>
 @stop

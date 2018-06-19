@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 
 class Hopital extends Model
 {
 
+    use  Notifiable;
 
 
     public $timestamps = false;

@@ -21,8 +21,7 @@ class Service extends Model
         return $this->belongsToMany('App\Hopital');
     }
 
-    /*public function hopital()
-    {
-        return $this->belongsTo(Hopital::class, 'hopital_id');
-    }*/
+
+
+
 }

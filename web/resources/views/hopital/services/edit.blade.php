@@ -5,7 +5,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>{{ $hopital->designation }} - Service {{ $service->designation }}</h1>
+    <h1> Service {{ $service->designation }}</h1>
 @stop
 
 @section('content')
@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <div class="box box-danger">
 
-                <form class="needs-validation" novalidate action="{{ url('/administration/hopital/'.$hopital->id.'/services/update') }}" method="POST">
+                <form class="needs-validation" novalidate action="{{ url('/administration/hopital/services/update') }}" method="POST">
                     {{ csrf_field() }}
 
                     <input type="hidden" value="{{ $hopitalservice->id }}" name="id">

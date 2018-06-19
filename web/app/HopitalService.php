@@ -13,5 +13,9 @@ class HopitalService extends Model
         'id','lits','hopital_id','service_id',
     ];
 
+    public function interventions()
+    {
+        return $this->hasMany('App\Intervention');
+    }
 
 }

@@ -9,7 +9,7 @@ class Intervention extends Model
 
 
     protected $fillable = [
-        'nom','prenom','email','adresse','telephone', 'sexe','etat','type',
+        'nom','prenom','email','adresse','telephone', 'sexe','etat','type', 'situation','groupage',
     ];
 
 
@@ -17,4 +17,16 @@ class Intervention extends Model
     {
         return $this->belongsTo('App\Hopital');
     }
+
+    public function service()
+    {
+        return $this->belongsTo('App\HopitalService');
+    }
+
+    public function rapports()
+    {
+        return $this->hasMany('App\Rapport');
+    }
+
+
 }

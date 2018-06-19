@@ -15,7 +15,7 @@ class InterventionSent  implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public $ambulance;
+    public $intervention;
 
     public $message;
 
@@ -26,10 +26,9 @@ class InterventionSent  implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($ambulance)
+    public function __construct($intervention)
     {
-        $this->ambulance = $ambulance;
-        $this->message  = "{$ambulance} sent intervention";
+        $this->message  = "{$intervention} en route";
     }
 
     /**

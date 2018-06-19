@@ -4,6 +4,7 @@
 
 @section('title', 'Dashboard')
 
+
 @section('content_header')
     <h1>Ajouter un hopital</h1>
 @stop
@@ -62,16 +63,22 @@
                             </div>
 
 
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="latitude">Latitude</label>
-                                <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude" value="" required>
+                            <div class="form-row">
+
+                                <div class="form-group col-md-6">
+                                    <label for="latitude">Latitude</label>
+                                    <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude" value="" required>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="longitude">Longitude</label>
+                                    <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude" value="" required>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="longitude">Longitude</label>
-                                <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude" value="" required>
-                            </div>
-                        </div>
+
+
+
+
 
 
                         <div class="form-row">
@@ -102,6 +109,10 @@
 
 
 
+
+
+
+
 @stop
 
 @section('css')
@@ -119,6 +130,7 @@
         })
 
     </script>
+
 
 @stop
 

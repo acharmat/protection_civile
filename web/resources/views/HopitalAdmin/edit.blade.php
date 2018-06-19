@@ -5,7 +5,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Service {{ $service->designation }}</h1>
+    <h1> {{ $intervention->nom }} {{ $intervention->prenom }}</h1>
 @stop
 
 @section('content')
@@ -18,7 +18,7 @@
                 <form class="needs-validation" novalidate action="{{ url('administration/services/update') }}" method="POST">
                     {{ csrf_field() }}
 
-                    <input type="hidden" value="{{ $service->id }}" name="id">
+                    <input type="hidden" value="{{ $intervention->id }}" name="id">
 
                     <div class="box-body">
 

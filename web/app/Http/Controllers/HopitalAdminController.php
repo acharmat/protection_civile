@@ -30,4 +30,6 @@ class HopitalAdminController extends Controller
     }
 
 
+
+
 }
